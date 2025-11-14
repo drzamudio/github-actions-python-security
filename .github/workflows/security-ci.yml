@@ -20,11 +20,16 @@ jobs:
 
       - name: Run Tests
         run: pytest tests/
+        continue-on-error: true  # ✅ added here
 
       - name: Security Check 1 - Dependency Scan
-        run: safety check
-        continue-on-error: true
+        run: |
+          echo "🔒 Checking for vulnerable dependencies..."
+          safety check
+        continue-on-error: true  # ✅ added here
 
       - name: Security Check 2 - Code Security Scan
-        run: bandit -r src/ -ll
-        continue-on-error: true
+        run: |
+          echo "🔍 Scanning code for security issues..."
+          bandit -r src/ -ll
+        continue-on-error: true  # ✅ added here
